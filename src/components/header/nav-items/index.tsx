@@ -10,6 +10,21 @@ import {
 import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 
+const useIsBigScreen = () => {
+  const [isBigScreen, setIsBigScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsBigScreen(window.innerWidth > 1200);
+    if (typeof window !== "undefined") {
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  return isBigScreen;
+};
+
 export default function NavItems() {
   const items = [
     "Characters",
@@ -20,14 +35,13 @@ export default function NavItems() {
     "Stories",
   ];
 
-  const [isBigScreen, setIsBigScreen] = useState(false);
+  const isBigScreen = useIsBigScreen();
+  const [pathName, setPathName] = useState("");
 
-  const pathName = window.location.pathname;
   useEffect(() => {
-    const handleResize = () => setIsBigScreen(window.innerWidth > 1200);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    if (typeof window !== "undefined") {
+      setPathName(window.location.pathname);
+    }
   }, []);
 
   const renderLinks = () => (
@@ -61,9 +75,11 @@ export default function NavItems() {
       ) : (
         <Drawer direction="bottom">
           <DrawerTrigger>
-            <Button variant="outline">
-              <Menu />
-            </Button>
+            <div>
+              <Button variant="outline">
+                <Menu />
+              </Button>
+            </div>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>

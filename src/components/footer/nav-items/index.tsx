@@ -25,7 +25,7 @@ export default function NavItems() {
     <nav className="my-4">
       <ul className="w-full flex justify-center">
         {items.map((e) => (
-          <li>
+          <li key={e.link}>
             <Link href={e.link}>
               <Button size={"sm"} variant={"link"}>
                 {e.label}

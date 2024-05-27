@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllCharacters } from "../api/marvel/characters/get-all-character";
 import CharacterCard from "@/components/marvel/characters/character-card";
 import { ICharactersRoot } from "@/interfaces/marvel/characters";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Pagination } from "@/components/pagination";
 import CharacterCardSkeleton from "@/components/marvel/characters/character-card-skeleton";
 
@@ -25,8 +25,6 @@ export default function CharactersPage() {
           page,
         }),
     });
-
-  console.log(characters);
 
   return (
     <Layout>
