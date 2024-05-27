@@ -6,7 +6,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
   return (
     <Layout>
       <Container>
-        <div>My Post: {params.id}</div>
+        <div>My character id: {params.id}</div>
       </Container>
     </Layout>
   );

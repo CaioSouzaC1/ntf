@@ -7,9 +7,9 @@ export default function Header() {
     <Container>
       <header className="flex mt-8 mb-10 justify-between items-center">
         <Image
-          className="object-cover max-h-12"
+          className="object-cover max-h-14 rounded-b-sm"
           src="/marvel.png"
-          height={48}
+          height={56}
           width={120}
           alt="Marvel logo"
         />

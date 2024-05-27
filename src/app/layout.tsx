@@ -1,19 +1,10 @@
 "use client";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./contexts/theme-provider";
-import { useState } from "react";
 import { queryClient } from "./lib/react-query";
 import { Fira_Sans } from "next/font/google";
 import { Toaster } from "sonner";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const fira = Fira_Sans({
   subsets: ["greek-ext"],

@@ -36,8 +36,8 @@
     }
 
     .dark {
-      --background: 0 0% 3.9%;
-      --foreground: 0 0% 98%;
+      --background: 0 0% 0%;
+      --foreground: 0 0% 100%;
 
       --card: 0 0% 3.9%;
       --card-foreground: 0 0% 98%;
@@ -48,7 +48,7 @@
       --primary: 0 0% 98%;
       --primary-foreground: 0 0% 9%;
 
-      --secondary: 0 0% 14.9%;
+      --secondary: 0 0% 7%;
       --secondary-foreground: 0 0% 98%;
 
       --muted: 0 0% 14.9%;
@@ -57,7 +57,7 @@
       --accent: 0 0% 14.9%;
       --accent-foreground: 0 0% 98%;
 
-      --destructive: 0 62.8% 30.6%;
+      --destructive: 0 88% 51%;
       --destructive-foreground: 0 0% 98%;
 
       --border: 0 0% 14.9%;
