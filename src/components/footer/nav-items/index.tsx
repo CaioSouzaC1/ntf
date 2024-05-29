@@ -3,7 +3,6 @@ import Link from "next/link";
 import { mainItems, mediumItems, minorItems } from "../constants";
 import Image from "next/image";
 import {
-  Facebook,
   FacebookIcon,
   InstagramIcon,
   Twitter,

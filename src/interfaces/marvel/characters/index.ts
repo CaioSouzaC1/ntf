@@ -1,3 +1,4 @@
+import { IBaseAuthParams } from "@/interfaces/api";
 import { IData, IRoot } from "..";
 
 export interface ICharactersRoot extends IRoot {
@@ -79,4 +80,9 @@ export interface IItem4 {
 export interface IUrl {
   type: string;
   url: string;
+}
+
+export interface IParameters extends IBaseAuthParams {
+  nameStartsWith?: string;
+  offset: number;
 }

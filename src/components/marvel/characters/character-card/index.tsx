@@ -22,7 +22,7 @@ export default function CharacterCard({ character }: ICharacterCardProps) {
     <Link href={`/character/${character.id}`}>
       <Card className="cursor-pointer">
         <CardHeader>
-          <CardTitle>{character.name}</CardTitle>
+          <CardTitle className="line-clamp-1">{character.name}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative aspect-w-16 aspect-h-14 overflow-hidden rounded-md">
@@ -36,7 +36,7 @@ export default function CharacterCard({ character }: ICharacterCardProps) {
           </div>
           <div className="min-h-12 mt-4">
             <CardDescription>
-              {MarvelUtils.cutDescription(character.description, 65)}
+              {MarvelUtils.cutDescription(character.description, 60)}
             </CardDescription>
           </div>
         </CardContent>
