@@ -58,7 +58,46 @@ export interface IEvents {
   returned: number;
 }
 
+export interface ICreators {
+  available: number;
+  collectionURI: string;
+  items: IItem[];
+  returned: number;
+}
 export interface IUrl {
   type: string;
   url: string;
+}
+
+export interface ITextObject {
+  type: string;
+  language: string;
+  text: string;
+}
+
+export interface IVariant {
+  resourceURI: string;
+  name: string;
+}
+
+export interface IDate {
+  type: string;
+  date: string;
+}
+
+export interface IPrice {
+  type: string;
+  price: number;
+}
+
+export interface IImage {
+  path: string;
+  extension: string;
+}
+
+export interface ICharacters {
+  available: number;
+  collectionURI: string;
+  items: IItem2[];
+  returned: number;
 }

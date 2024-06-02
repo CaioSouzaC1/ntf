@@ -90,3 +90,29 @@
       scrollbar-width: none;
     }
   }
+
+  .clip-character {
+    clip-path: none;
+    }
+
+  .name-character {
+    left: unset;
+    top: unset;
+    @apply h-auto w-full right-0 font-black text-xl uppercase bg-black;
+  }
+
+  @media (min-width: 1024px) {
+    .clip-character {
+      clip-path: polygon(100% 0, 100% 15%, 50% 100%, 0 100%, 0 0);
+    }
+
+    .name-character {
+      transform: rotate(90deg); 
+      transform-origin: right; 
+      left: unset;
+      top: unset;
+      @apply h-auto w-auto right-8 font-black text-3xl uppercase bg-transparent;
+    }
+
+  }
+
