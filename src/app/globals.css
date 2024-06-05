@@ -101,6 +101,12 @@
     @apply h-auto w-full right-0 font-black text-xl uppercase bg-black;
   }
 
+  .name-character-skeleton {
+    left: unset;
+    top: unset;
+    @apply h-auto w-full right-0 bg-primary/10;
+  }
+
   @media (min-width: 1024px) {
     .clip-character {
       clip-path: polygon(100% 0, 100% 15%, 50% 100%, 0 100%, 0 0);
@@ -112,6 +118,14 @@
       left: unset;
       top: unset;
       @apply h-auto w-auto right-8 font-black text-3xl uppercase bg-transparent;
+    }
+
+    .name-character-skeleton {
+      transform: rotate(90deg); 
+      transform-origin: right; 
+      left: unset;
+      top: unset;
+      @apply h-auto w-auto right-8 bg-primary/10;
     }
 
   }

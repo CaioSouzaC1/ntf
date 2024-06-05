@@ -1,7 +1,6 @@
 "use client";
 import "./globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "./contexts/theme-provider";
 import { queryClient } from "./lib/react-query";
 import { Fira_Sans } from "next/font/google";
 import { Toaster } from "sonner";
@@ -20,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fira.className}>
+      <body className={`${fira.className} dark`}>
         <Toaster position="top-center" />
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider>{children}</ThemeProvider>
+          {children}
         </QueryClientProvider>
       </body>
     </html>

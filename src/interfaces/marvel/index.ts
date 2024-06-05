@@ -24,6 +24,10 @@ export interface IItem {
   name: string;
 }
 
+export interface IItemCreator extends IItem {
+  role?: string;
+}
+
 export interface IItem2 {
   resourceURI: string;
   name: string;
@@ -61,7 +65,7 @@ export interface IEvents {
 export interface ICreators {
   available: number;
   collectionURI: string;
-  items: IItem[];
+  items: IItemCreator[];
   returned: number;
 }
 export interface IUrl {

@@ -20,6 +20,11 @@ export class MarvelUtils {
   public static multiplyPageToOffset(page: string) {
     return (Number(page) - 1) * 20;
   }
+
+  public static notFoundVerification(text: string | number | undefined) {
+    if (!text || text === "") return "not found";
+    return text;
+  }
 }
 
 export function handlePaginate(
