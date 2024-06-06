@@ -51,6 +51,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ICharacterStoriesRoot } from "@/interfaces/marvel/character/stories";
+import { getCharacterStoriesById } from "@/app/api/marvel/character/stories/get-character-stories-by-id";
+import { Pagination } from "@/components/pagination";
+import { useSearchParams } from "next/navigation";
 
 export default function CharacterPage({ params }: { params: { id: string } }) {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
@@ -91,7 +95,14 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
     queryFn: () => getCharacterSeriesById({ id: params.id }),
   });
 
-  console.log(characterSeries);
+  const {
+    data: characterStories,
+    isLoading: isLoadingCharacterStories,
+    isError: isErrorCharacterStories,
+  } = useQuery<ICharacterStoriesRoot>({
+    queryKey: ["get-character-stories"],
+    queryFn: () => getCharacterStoriesById({ id: params.id }),
+  });
 
   return (
     <Layout>
@@ -102,6 +113,13 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
         )}
         {isErrorCharacterEvents && (
           <div>Error, character events not found!</div>
+        )}
+        {isErrorCharacterSeries && (
+          <div>Error, character series not found!</div>
+        )}
+
+        {isErrorCharacterStories && (
+          <div>Error, character stories not found!</div>
         )}
         <div className="flex flex-wrap">
           <div className="relative aspect-w-16 aspect-h-9 overflow-hidden rounded-md w-full lg:w-1/3">
@@ -121,7 +139,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                       objectFit="cover"
                       className="clip-character transition-all hover:scale-110"
                     />
-                    <p className="name-character">
+                    <p className="name-character hover:text-destructive transition-all">
                       {character.data.results[0].name}
                     </p>
                   </>
@@ -470,11 +488,49 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-8">
           {isLoadingCharacterSeries ? (
-            <div></div>
+            <div className="col-span-2">
+              <CardHeader className="py-2">
+                <CardTitle className="w-full text-center text-2xl hover:text-destructive transition-all mb-12">
+                  Series
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="px-4 lg:px-8">
+                  <Carousel
+                    plugins={[plugin.current]}
+                    onMouseEnter={plugin.current.stop}
+                    onMouseLeave={plugin.current.reset}
+                    className="w-full">
+                    <CarouselContent className="-mt-1">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <CarouselItem
+                          className="md:basis-1/2 lg:basis-1/3"
+                          key={index}>
+                          <div className="p-1">
+                            <Card>
+                              <CardHeader className="pb-0">
+                                <CardTitle className="block line-clamp-2 min-h-10 text-sm">
+                                  <Skeleton className="w-full h-8" />
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="flex items-center justify-center p-6">
+                                <Skeleton className="w-full h-36" />
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+                </div>
+              </CardContent>
+            </div>
           ) : (
             <>
               {characterSeries && characterSeries.data.total > 0 && (
-                <div className="col-span-1">
+                <div className="col-span-2">
                   <CardHeader className="py-2">
                     <CardTitle className="w-full text-center text-2xl hover:text-destructive transition-all mb-12">
                       Series
@@ -483,16 +539,15 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                   <CardContent>
                     <div className="px-4 lg:px-8">
                       <Carousel
-                        orientation="vertical"
                         plugins={[plugin.current]}
                         onMouseEnter={plugin.current.stop}
                         onMouseLeave={plugin.current.reset}
                         className="w-full">
-                        <CarouselContent className="-mt-1 h-[42rem]">
+                        <CarouselContent className="-mt-1">
                           {characterSeries.data.results.map((serie, index) => (
                             <CarouselItem
-                              key={index}
-                              className="pt-1 basis-2 md:basis-1/4">
+                              className="md:basis-1/2 lg:basis-1/3"
+                              key={index}>
                               <div className="p-1">
                                 <Card>
                                   <CardHeader className="pb-0">
@@ -505,10 +560,10 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                                       <SheetTrigger>
                                         <Image
                                           src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
-                                          alt={serie.title}
-                                          width={300}
-                                          height={200}
-                                          className="transition-all hover:scale-105 object-cover max-h-52"
+                                          alt={"serie image"}
+                                          width={100}
+                                          height={140}
+                                          className="block h-36 w-full hover:brightness-125 transition-all hover:scale-110 object-cover"
                                         />
                                       </SheetTrigger>
                                       <SheetContent>
@@ -575,6 +630,64 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                         <CarouselNext />
                       </Carousel>
                     </div>
+                  </CardContent>
+                </div>
+              )}
+            </>
+          )}
+
+          {isLoadingCharacterStories ? (
+            <div className="col-span-1">
+              <CardHeader className="py-2">
+                <CardTitle className="w-full text-center text-2xl hover:text-destructive transition-all mb-12">
+                  Stories
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="max-h-64 overflow-y-scroll">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Array.from({ length: 10 }).map((_, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">
+                          <Skeleton className="w-full h-4 mb-2" />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </div>
+          ) : (
+            <>
+              {characterStories && characterStories.data.total > 0 && (
+                <div className="col-span-1">
+                  <CardHeader className="py-2">
+                    <CardTitle className="w-full text-center text-2xl hover:text-destructive transition-all mb-12">
+                      Stories
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="max-h-64 overflow-y-scroll">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="font-bold">Title</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {characterStories.data.results.map((storie, index) => (
+                          <TableRow key={index}>
+                            <TableCell className="font-medium">
+                              <p className="line-clamp-1">{storie.title}</p>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </CardContent>
                 </div>
               )}

@@ -26,14 +26,7 @@ const useIsBigScreen = () => {
 };
 
 export default function NavItems() {
-  const items = [
-    "Characters",
-    "Comics",
-    "Creators",
-    "Events",
-    "Series",
-    "Stories",
-  ];
+  const items = ["Characters", "Comics", "Creators", "Events", "Series"];
 
   const isBigScreen = useIsBigScreen();
   const [pathName, setPathName] = useState("");

@@ -17,8 +17,8 @@ export class MarvelUtils {
       : description;
   }
 
-  public static multiplyPageToOffset(page: string) {
-    return (Number(page) - 1) * 20;
+  public static multiplyPageToOffset(page: string, take: number = 20) {
+    return (Number(page) - 1) * take;
   }
 
   public static notFoundVerification(text: string | number | undefined) {
