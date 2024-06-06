@@ -1,12 +1,12 @@
 import { IGetCharacterById } from "@/interfaces/marvel/character";
-import { ICharacterComicsRoot } from "@/interfaces/marvel/character/comics";
+import { ICharacterSeriesRoot } from "@/interfaces/marvel/character/series";
 import api, { authInterceptor } from "@/services/api";
 import { toast } from "sonner";
 
-export async function getCharacterComicsById({ id }: IGetCharacterById) {
+export async function getCharacterSeriesById({ id }: IGetCharacterById) {
   try {
-    const response = await api.get<ICharacterComicsRoot>(
-      `/v1/public/characters/${id}/comics`,
+    const response = await api.get<ICharacterSeriesRoot>(
+      `/v1/public/characters/${id}/series`,
       {
         params: { ...authInterceptor() },
       }
@@ -15,7 +15,7 @@ export async function getCharacterComicsById({ id }: IGetCharacterById) {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast("Erro ao consultar revistas do personagem!");
+    toast("Erro ao consultar séries do personagem!");
     throw error;
   }
 }
