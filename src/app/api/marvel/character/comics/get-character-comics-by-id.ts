@@ -15,7 +15,6 @@ export async function getCharacterComicsById({ id }: IGetCharacterById) {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast("Erro ao consultar revistas do personagem!");
     throw error;
   }
 }

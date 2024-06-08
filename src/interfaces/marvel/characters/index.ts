@@ -34,6 +34,7 @@ export interface ICharactersResult {
 
 export interface IParameters extends IBaseAuthParams {
   nameStartsWith?: string;
+  titleStartsWith?: string;
   offset: number;
   limit?: number;
 }

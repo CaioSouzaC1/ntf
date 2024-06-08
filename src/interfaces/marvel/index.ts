@@ -105,3 +105,8 @@ export interface ICharacters {
   items: IItem2[];
   returned: number;
 }
+export interface ITextObject {
+  type: string;
+  language: string;
+  text: string;
+}

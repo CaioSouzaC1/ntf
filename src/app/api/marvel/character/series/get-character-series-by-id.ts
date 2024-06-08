@@ -15,7 +15,6 @@ export async function getCharacterSeriesById({ id }: IGetCharacterById) {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast("Erro ao consultar séries do personagem!");
     throw error;
   }
 }

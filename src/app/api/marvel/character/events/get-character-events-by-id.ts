@@ -15,7 +15,6 @@ export async function getCharacterEventsById({ id }: IGetCharacterById) {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast("Erro ao consultar eventos do personagem!");
     throw error;
   }
 }

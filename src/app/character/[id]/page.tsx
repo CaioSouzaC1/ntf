@@ -34,7 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { X } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { MarvelUtils } from "@/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
@@ -53,8 +53,8 @@ import {
 } from "@/components/ui/sheet";
 import { ICharacterStoriesRoot } from "@/interfaces/marvel/character/stories";
 import { getCharacterStoriesById } from "@/app/api/marvel/character/stories/get-character-stories-by-id";
-import { Pagination } from "@/components/pagination";
-import { useSearchParams } from "next/navigation";
+import NotFound from "@/components/not-found";
+import Link from "next/link";
 
 export default function CharacterPage({ params }: { params: { id: string } }) {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
@@ -103,6 +103,10 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
     queryKey: ["get-character-stories"],
     queryFn: () => getCharacterStoriesById({ id: params.id }),
   });
+
+  if (isErrorCharacter) {
+    return <NotFound title="character" />;
+  }
 
   return (
     <Layout>
@@ -339,7 +343,18 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                                                 </div>
                                               </div>
                                               <DrawerFooter>
-                                                <DrawerClose className="flex justify-end">
+                                                <DrawerClose className="flex justify-between">
+                                                  <Link
+                                                    href={`/comic/${comic.id}`}>
+                                                    <Button
+                                                      className="flex gap-4 font-bold"
+                                                      variant="secondary">
+                                                      <span>
+                                                        See comic internal page
+                                                      </span>
+                                                      <Info className="w-4" />
+                                                    </Button>
+                                                  </Link>
                                                   <Button
                                                     className="flex gap-4 font-bold"
                                                     variant="destructive">

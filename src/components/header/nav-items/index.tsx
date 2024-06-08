@@ -37,6 +37,10 @@ export default function NavItems() {
     }
   }, []);
 
+  const verifyPathToButtons = (path: string) => {
+    return path === pathName || pathName.includes(path.slice(0, -1));
+  };
+
   const renderLinks = () => (
     <>
       <Link href="/">
@@ -51,8 +55,8 @@ export default function NavItems() {
         return (
           <Link key={item} href={path}>
             <Button
-              className={`font-normal ${path === pathName && "mx-4"}`}
-              variant={`${path === pathName ? "destructive" : "link"}`}>
+              className={`font-normal ${verifyPathToButtons(path) && "mx-4"}`}
+              variant={`${verifyPathToButtons(path) ? "destructive" : "link"}`}>
               {item}
             </Button>
           </Link>

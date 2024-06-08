@@ -17,7 +17,6 @@ export async function getCharacterById({ id }: IGetCharacterById) {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast("Erro ao consultar dados do personagem!");
     throw error;
   }
 }
