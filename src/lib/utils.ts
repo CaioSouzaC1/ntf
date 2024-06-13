@@ -25,6 +25,14 @@ export class MarvelUtils {
     if (!text || text === "") return "not found";
     return text;
   }
+
+  public static extractNumbersFromUrl(url: string): string {
+    const matches = url.match(/\d+/g);
+
+    if (matches) return matches.join(",").split(",")[1];
+
+    return "";
+  }
 }
 
 export function handlePaginate(
