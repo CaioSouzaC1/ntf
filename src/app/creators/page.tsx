@@ -5,10 +5,8 @@ import { Heading } from "@/components/ui/heading";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { Pagination } from "@/components/pagination";
-import CharacterCardSkeleton from "@/components/marvel/characters/character-card-skeleton";
 import { useState } from "react";
 import InputSearch from "@/components/search";
-import CharacterCardNotFound from "@/components/marvel/characters/character-card-not-found";
 import { getAllCreators } from "../api/marvel/creators/get-all-creators";
 import { ICreatorsRoot } from "@/interfaces/marvel/creators";
 import {
