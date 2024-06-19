@@ -32,7 +32,7 @@ const InputSearch = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [searchTerm, router, page, handleSetSearch]);
+  }, [searchTerm, router, handleSetSearch]);
 
   return (
     <div className="flex items-center gap-4 my-4 relative">
