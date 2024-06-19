@@ -111,20 +111,6 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
   return (
     <Layout>
       <Container>
-        {isErrorCharacter && <div>Error, character not found!</div>}
-        {isErrorCharacterComics && (
-          <div>Error, character comics not found!</div>
-        )}
-        {isErrorCharacterEvents && (
-          <div>Error, character events not found!</div>
-        )}
-        {isErrorCharacterSeries && (
-          <div>Error, character series not found!</div>
-        )}
-
-        {isErrorCharacterStories && (
-          <div>Error, character stories not found!</div>
-        )}
         <div className="flex flex-wrap">
           <div className="relative aspect-w-16 aspect-h-9 overflow-hidden rounded-md w-full lg:w-1/3">
             {isLoadingCharacter ? (

@@ -57,8 +57,6 @@ export default function CreatorsPage() {
         }),
     });
 
-  console.log(creators);
-
   return (
     <Layout>
       <Container>
@@ -304,7 +302,6 @@ export default function CreatorsPage() {
           <Pagination
             pageIndex={Number(page)}
             totalCount={creators.data.total}
-            perPage={creators.data.count}
           />
         )}
       </Container>

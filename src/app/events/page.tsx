@@ -31,8 +31,6 @@ export default function CreatorsPage() {
       }),
   });
 
-  console.log(events);
-
   return (
     <Layout>
       <Container>
@@ -40,7 +38,7 @@ export default function CreatorsPage() {
           See Marvel events
         </Heading>
         <InputSearch
-          placeholder="Age of"
+          placeholder="Age of Ultron"
           page={page}
           handleSetSearch={setDebouncedSearchTerm}
         />

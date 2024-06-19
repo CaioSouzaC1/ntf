@@ -24,7 +24,7 @@ const InputSearch = ({
       const params = new URLSearchParams(window.location.search);
       params.set("search", searchTerm);
       if (!searchTerm) params.delete("search");
-      params.set("page", page.toString());
+      params.set("page", "1");
 
       router.push(`${window.location.pathname}?${params.toString()}`);
     }, 1000);

@@ -60,11 +60,7 @@ export default function ComicsPage() {
           )}
         </div>
         {comics && (
-          <Pagination
-            pageIndex={Number(page)}
-            totalCount={comics.data.total}
-            perPage={comics.data.count}
-          />
+          <Pagination pageIndex={Number(page)} totalCount={comics.data.total} />
         )}
       </Container>
     </Layout>

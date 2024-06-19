@@ -12,13 +12,13 @@ import { handlePaginate } from "@/lib/utils";
 export interface PaginationProps {
   pageIndex: number;
   totalCount: number;
-  perPage: number;
+  perPage?: number;
 }
 
 export function Pagination({
   pageIndex,
   totalCount,
-  perPage,
+  perPage = 20,
 }: PaginationProps) {
   const searchParams = useSearchParams();
   const router = useRouter();

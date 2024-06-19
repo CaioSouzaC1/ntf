@@ -68,7 +68,6 @@ export default function CharactersPage() {
           <Pagination
             pageIndex={Number(page)}
             totalCount={characters.data.total}
-            perPage={characters.data.count}
           />
         )}
       </Container>

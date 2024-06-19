@@ -43,8 +43,6 @@ export default function ComicPage({ params }: { params: { id: string } }) {
     return <NotFound title="comic" />;
   }
 
-  console.log(comic);
-
   return (
     <Layout>
       <Container>
