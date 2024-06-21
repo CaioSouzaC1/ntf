@@ -1,13 +1,11 @@
-import {
-  ICharacterRoot,
-  IGetCharacterById,
-} from "@/interfaces/marvel/character";
+import { IGetEntityById } from "@/interfaces/marvel";
+import { ICharacterRoot } from "@/interfaces/marvel/character";
 import { IParameters } from "@/interfaces/marvel/characters";
 import { MarvelUtils } from "@/lib/utils";
 import api, { authInterceptor } from "@/services/api";
 
 export async function getEventCharactersById(
-  { id }: IGetCharacterById,
+  { id }: IGetEntityById,
   page: string = "1"
 ) {
   const parameters: IParameters = {
