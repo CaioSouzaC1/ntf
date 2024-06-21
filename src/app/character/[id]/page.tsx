@@ -113,6 +113,11 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
     return <NotFound title="character" />;
   }
 
+  if (character)
+    console.log(
+      `${character.data.results[0].thumbnail.path}.${character.data.results[0].thumbnail.extension}`
+    );
+
   return (
     <Layout>
       <Container>
@@ -134,7 +139,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                       objectFit="cover"
                       className="clip-character transition-all hover:scale-110"
                     />
-                    <p className="name-character hover:text-destructive transition-all">
+                    <p className="name-character hover:text-destructive transition-all line-clamp-2">
                       {character.data.results[0].name}
                     </p>
                   </>

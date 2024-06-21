@@ -69,6 +69,11 @@ export default function EventPage({ params }: { params: { id: string } }) {
     return <NotFound title="event" />;
   }
 
+  if (event)
+    console.log(
+      `${event.data.results[0].thumbnail.path}.${event.data.results[0].thumbnail.extension}`
+    );
+
   return (
     <Layout>
       <Container>
