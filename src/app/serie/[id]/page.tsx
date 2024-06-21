@@ -19,6 +19,7 @@ import { IComicsRoot } from "@/interfaces/marvel/comics";
 import { getSerieComicsById } from "@/app/api/marvel/serie/comics/get-serie-comics-by-id";
 import ComicsCarousel from "@/components/marvel/comics/carousel";
 import ComicsCarouselSkeleton from "@/components/marvel/comics/carousel-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SeriePage({ params }: { params: { id: string } }) {
   const {
@@ -48,14 +49,16 @@ export default function SeriePage({ params }: { params: { id: string } }) {
             <div className="col-span-1">
               <Card>
                 <CardHeader>
-                  <CardTitle>Card Title</CardTitle>
-                  <CardDescription>Card Description</CardDescription>
+                  <CardTitle>
+                    <Skeleton className="w-full h-4"></Skeleton>
+                  </CardTitle>
+                  <Skeleton className="w-full h-3"></Skeleton>
                 </CardHeader>
                 <CardContent>
-                  <p>Card Content</p>
+                  <Skeleton className="w-full h-60"></Skeleton>
                 </CardContent>
                 <CardFooter>
-                  <p>Card Footer</p>
+                  <Skeleton className="w-20 h-3"></Skeleton>
                 </CardFooter>
               </Card>
             </div>
