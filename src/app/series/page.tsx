@@ -3,8 +3,6 @@ import Layout from "@/_layouts";
 import Container from "@/components/container";
 import { Heading } from "@/components/ui/heading";
 import { useQuery } from "@tanstack/react-query";
-import CharacterCard from "@/components/marvel/characters/character-card";
-import { ICharactersRoot } from "@/interfaces/marvel/characters";
 import { useSearchParams } from "next/navigation";
 import { Pagination } from "@/components/pagination";
 import CharacterCardSkeleton from "@/components/marvel/characters/character-card-skeleton";
@@ -37,7 +35,7 @@ export default function SeriesPage() {
     <Layout>
       <Container>
         <Heading className="text-center" size={"2xl"}>
-          See Marvel Series
+          See Marvel series
         </Heading>
         <InputSearch
           placeholder="15 Love"

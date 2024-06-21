@@ -1,3 +1,7 @@
+export interface IGetEntityById {
+  id: string;
+}
+
 export interface IRoot {
   code: number;
   status: string;

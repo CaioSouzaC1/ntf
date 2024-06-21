@@ -1,11 +1,11 @@
 import { IGetEntityById } from "@/interfaces/marvel";
-import { ICharacterRoot } from "@/interfaces/marvel/character";
+import { IComicsRoot } from "@/interfaces/marvel/comics";
 import api, { authInterceptor } from "@/services/api";
 
-export async function getCharacterById({ id }: IGetEntityById) {
+export async function getSerieComicsById({ id }: IGetEntityById) {
   try {
-    const response = await api.get<ICharacterRoot>(
-      `/v1/public/characters/${id}`,
+    const response = await api.get<IComicsRoot>(
+      `/v1/public/series/${id}/comics`,
       {
         params: { ...authInterceptor() },
       }

@@ -1,10 +1,10 @@
 import { IGetEntityById } from "@/interfaces/marvel";
-import { IEventRoot } from "@/interfaces/marvel/event";
+import { ISerieRoot } from "@/interfaces/marvel/serie";
 import api, { authInterceptor } from "@/services/api";
 
-export async function getEventById({ id }: IGetEntityById) {
+export async function getSerieById({ id }: IGetEntityById) {
   try {
-    const response = await api.get<IEventRoot>(`/v1/public/events/${id}`, {
+    const response = await api.get<ISerieRoot>(`/v1/public/series/${id}`, {
       params: { ...authInterceptor() },
     });
 

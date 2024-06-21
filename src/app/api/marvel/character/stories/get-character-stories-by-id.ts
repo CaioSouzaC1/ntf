@@ -1,12 +1,11 @@
-import { IGetCharacterById } from "@/interfaces/marvel/character";
+import { IGetEntityById } from "@/interfaces/marvel";
 import { ICharacterStoriesRoot } from "@/interfaces/marvel/character/stories";
 import { IParameters } from "@/interfaces/marvel/characters";
 import { MarvelUtils } from "@/lib/utils";
 import api, { authInterceptor } from "@/services/api";
-import { toast } from "sonner";
 
 export async function getCharacterStoriesById(
-  { id }: IGetCharacterById,
+  { id }: IGetEntityById,
   page: string = "1"
 ) {
   const parameters: IParameters = {

@@ -9,10 +9,6 @@ import {
   IUrl,
 } from "..";
 
-export interface IGetCharacterById {
-  id: string;
-}
-
 export interface ICharacterRoot extends IRoot {
   data: ICharacterData;
 }

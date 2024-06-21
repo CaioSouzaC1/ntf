@@ -6,7 +6,6 @@ import Container from "@/components/container";
 import { ICharacterRoot } from "@/interfaces/marvel/character";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { ICharacterComicsRoot } from "@/interfaces/marvel/character/comics";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Carousel,
@@ -34,10 +33,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Info, X } from "lucide-react";
+import { X } from "lucide-react";
 import { MarvelUtils } from "@/lib/utils";
-import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { getCharacterEventsById } from "@/app/api/marvel/character/events/get-character-events-by-id";
 import { ICharacterEventsRoot } from "@/interfaces/marvel/character/events";
@@ -54,10 +52,17 @@ import {
 import { ICharacterStoriesRoot } from "@/interfaces/marvel/character/stories";
 import { getCharacterStoriesById } from "@/app/api/marvel/character/stories/get-character-stories-by-id";
 import NotFound from "@/components/not-found";
-import Link from "next/link";
+import ComicsCarousel from "@/components/marvel/comics/carousel";
+import { IComicsRoot } from "@/interfaces/marvel/comics";
+import { AUTOPLAY_DELAY } from "@/lib/constants";
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import ComicsCarouselSkeleton from "@/components/marvel/comics/carousel-skeleton";
 
 export default function CharacterPage({ params }: { params: { id: string } }) {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(
+    Autoplay({ delay: AUTOPLAY_DELAY, stopOnInteraction: true })
+  );
 
   const {
     data: character,
@@ -72,7 +77,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
     data: characterComics,
     isLoading: isLoadingCharacterComics,
     isError: isErrorCharacterComics,
-  } = useQuery<ICharacterComicsRoot>({
+  } = useQuery<IComicsRoot>({
     queryKey: ["get-character-comics"],
     queryFn: () => getCharacterComicsById({ id: params.id }),
   });
@@ -149,32 +154,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                   </CardHeader>
                   <CardContent>
                     <div className="px-8">
-                      <Carousel
-                        plugins={[plugin.current]}
-                        onMouseEnter={plugin.current.stop}
-                        onMouseLeave={plugin.current.reset}>
-                        <CarouselContent>
-                          {Array.from({ length: 5 }).map((_, index) => (
-                            <CarouselItem
-                              className="md:basis-1/2 lg:basis-1/3"
-                              key={index}>
-                              <div className="p-1">
-                                <Card>
-                                  <CardHeader className="pb-0">
-                                    <Skeleton className="w-full h-3" />
-                                    <Skeleton className="w-full h-3" />
-                                  </CardHeader>
-                                  <CardContent className="flex items-center justify-center p-6">
-                                    <Skeleton className="w-full h-56" />
-                                  </CardContent>
-                                </Card>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                      </Carousel>
+                      <ComicsCarouselSkeleton />
                     </div>
                   </CardContent>
                 </div>
@@ -189,178 +169,7 @@ export default function CharacterPage({ params }: { params: { id: string } }) {
                       </CardHeader>
                       <CardContent>
                         <div className="px-4 lg:px-8">
-                          <Carousel
-                            plugins={[plugin.current]}
-                            onMouseEnter={plugin.current.stop}
-                            onMouseLeave={plugin.current.reset}>
-                            <CarouselContent>
-                              {characterComics.data.results.map(
-                                (comic, index) => (
-                                  <CarouselItem
-                                    className="md:basis-1/2 lg:basis-1/3"
-                                    key={index}>
-                                    <div className="p-1">
-                                      <Card>
-                                        <CardHeader className="pb-0">
-                                          <CardTitle className="block line-clamp-2 min-h-10 text-sm">
-                                            {comic.title}
-                                          </CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="flex items-center justify-center p-6">
-                                          <Drawer>
-                                            <DrawerTrigger>
-                                              <Image
-                                                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                                                alt={comic.title}
-                                                width={300}
-                                                height={400}
-                                                className="transition-all hover:scale-105 object-cover"
-                                              />
-                                            </DrawerTrigger>
-                                            <DrawerContent>
-                                              <DrawerHeader>
-                                                <DrawerTitle>
-                                                  {comic.title}
-                                                </DrawerTitle>
-                                                <DrawerDescription>
-                                                  {comic.description}
-                                                </DrawerDescription>
-                                              </DrawerHeader>
-                                              <div className="grid gap-4 grid-cols-1 lg:grid-cols-2 max-h-[50vh] overflow-y-auto">
-                                                {comic.creators.items.length >
-                                                  0 && (
-                                                  <div>
-                                                    <CardHeader>
-                                                      <CardTitle>
-                                                        Creators
-                                                      </CardTitle>
-                                                    </CardHeader>
-                                                    <CardContent>
-                                                      <Table>
-                                                        <TableHeader>
-                                                          <TableRow>
-                                                            <TableHead>
-                                                              Name
-                                                            </TableHead>
-                                                            <TableHead>
-                                                              Role
-                                                            </TableHead>
-                                                          </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                          {comic.creators.items.map(
-                                                            (
-                                                              creator,
-                                                              index
-                                                            ) => (
-                                                              <TableRow
-                                                                key={index}>
-                                                                <TableCell className="font-medium">
-                                                                  {MarvelUtils.notFoundVerification(
-                                                                    creator.name
-                                                                  )}
-                                                                </TableCell>
-                                                                <TableCell className="capitalize">
-                                                                  {MarvelUtils.notFoundVerification(
-                                                                    creator.role
-                                                                  )}
-                                                                </TableCell>
-                                                              </TableRow>
-                                                            )
-                                                          )}
-                                                        </TableBody>
-                                                      </Table>
-                                                    </CardContent>
-                                                  </div>
-                                                )}
-
-                                                <div>
-                                                  <CardHeader>
-                                                    <CardTitle>
-                                                      Info data
-                                                    </CardTitle>
-                                                  </CardHeader>
-                                                  <CardContent>
-                                                    <Table>
-                                                      <TableBody>
-                                                        <TableRow>
-                                                          <TableCell className="font-medium">
-                                                            Diamond code
-                                                          </TableCell>
-                                                          <TableCell className="text-right">
-                                                            {MarvelUtils.notFoundVerification(
-                                                              comic.diamondCode
-                                                            )}
-                                                          </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                          <TableCell className="font-medium">
-                                                            Page count
-                                                          </TableCell>
-                                                          <TableCell className="text-right">
-                                                            {MarvelUtils.notFoundVerification(
-                                                              comic.pageCount
-                                                            )}
-                                                          </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                          <TableCell className="font-medium">
-                                                            Digital id
-                                                          </TableCell>
-                                                          <TableCell className="text-right">
-                                                            {MarvelUtils.notFoundVerification(
-                                                              comic.digitalId
-                                                            )}
-                                                          </TableCell>
-                                                        </TableRow>
-                                                        <TableRow>
-                                                          <TableCell className="font-medium">
-                                                            Upc
-                                                          </TableCell>
-                                                          <TableCell className="text-right">
-                                                            {MarvelUtils.notFoundVerification(
-                                                              comic.upc
-                                                            )}
-                                                          </TableCell>
-                                                        </TableRow>
-                                                      </TableBody>
-                                                    </Table>
-                                                  </CardContent>
-                                                </div>
-                                              </div>
-                                              <DrawerFooter>
-                                                <DrawerClose className="flex justify-between">
-                                                  <Link
-                                                    href={`/comic/${comic.id}`}>
-                                                    <Button
-                                                      className="flex gap-4 font-bold"
-                                                      variant="secondary">
-                                                      <span>
-                                                        See comic internal page
-                                                      </span>
-                                                      <Info className="w-4" />
-                                                    </Button>
-                                                  </Link>
-                                                  <Button
-                                                    className="flex gap-4 font-bold"
-                                                    variant="destructive">
-                                                    <span>Close</span>
-                                                    <X className="w-4" />
-                                                  </Button>
-                                                </DrawerClose>
-                                              </DrawerFooter>
-                                            </DrawerContent>
-                                          </Drawer>
-                                        </CardContent>
-                                      </Card>
-                                    </div>
-                                  </CarouselItem>
-                                )
-                              )}
-                            </CarouselContent>
-                            <CarouselPrevious />
-                            <CarouselNext />
-                          </Carousel>
+                          <ComicsCarousel comics={characterComics} />
                         </div>
                       </CardContent>
                     </div>

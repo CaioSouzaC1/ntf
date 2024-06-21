@@ -1,9 +1,8 @@
-import { IGetCharacterById } from "@/interfaces/marvel/character";
+import { IGetEntityById } from "@/interfaces/marvel";
 import { ICharacterEventsRoot } from "@/interfaces/marvel/character/events";
 import api, { authInterceptor } from "@/services/api";
-import { toast } from "sonner";
 
-export async function getCharacterEventsById({ id }: IGetCharacterById) {
+export async function getCharacterEventsById({ id }: IGetEntityById) {
   try {
     const response = await api.get<ICharacterEventsRoot>(
       `/v1/public/characters/${id}/events`,
