@@ -1,24 +1,25 @@
 "use client";
 import Layout from "@/_layouts";
 import Container from "@/components/container";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { useIsBigScreen } from "@/components/header/nav-items";
 import { Vortex } from "@/components/ui/vortex";
 import Image from "next/image";
 import Link from "next/link";
 
-interface IGridLinks {
-  link: string;
-  name: string;
-  url: string;
-  category: string;
-}
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { AUTOPLAY_DELAY } from "@/lib/constants";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef } from "react";
+import { Badge } from "@/components/ui/badge";
 
-interface HomeGridCardProps {
-  grid: IGridLinks;
-  cols: string;
-}
-
-export default function Home() {
+export default function HomePage() {
+  const plugin = useRef(
+    Autoplay({ delay: AUTOPLAY_DELAY, stopOnInteraction: true })
+  );
   const gridLinks = [
     {
       link: "/character/1017297",
@@ -86,61 +87,80 @@ export default function Home() {
       url: "http://i.annihil.us/u/prod/marvel/i/mg/c/10/51ca0fc4c83c8.jpg",
       category: "Event",
     },
+    {
+      link: "/event/233",
+      name: "Atlantis Attacks",
+      url: "http://i.annihil.us/u/prod/marvel/i/mg/9/60/51c9d7f42a0c8.jpg",
+      category: "Event",
+    },
+    {
+      link: "/event/32",
+      name: "Kings of Pain",
+      url: "http://i.annihil.us/u/prod/marvel/i/mg/d/60/51c9e88b7fbd9.jpg",
+      category: "Event",
+    },
+    {
+      link: "/serie/32",
+      name: "2020 Rescue (2020)",
+      url: "http://i.annihil.us/u/prod/marvel/i/mg/1/40/5e558a8495066.jpg",
+      category: "Serie",
+    },
+    {
+      link: "/serie/16450",
+      name: "A+X (2012 - 2014)",
+      url: "page.tsx:45 http://i.annihil.us/u/prod/marvel/i/mg/5/d0/511e88a20ae34.jpg",
+      category: "Serie",
+    },
   ];
 
   gridLinks.sort(() => Math.random() - 0.5);
 
+  const isBigScreen = useIsBigScreen();
+
   return (
     <Layout>
-      <div className="w-full mx-auto rounded-md overflow-hidden">
+      <div className="w-full mx-auto rounded-md overflow-hidden -mt-4">
         <Vortex
           backgroundColor="black"
           rangeY={800}
-          particleCount={1000}
+          particleCount={750}
           baseHue={10}
-          className="flex items-center flex-col justify-center px-2 md:px-10 w-full h-full">
-          <h2 className="text-white text-2xl md:text-6xl font-bold text-center mt-40">
+          className="flex items-center flex-col justify-center px-2 md:px-10 w-full h-full gap-4">
+          <h2 className="text-white text-2xl md:text-6xl font-bold text-center mt-16 lg:mt-32">
             What can I see on this site?
           </h2>
-          <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
+          <p className="text-white text-sm md:text-2xl max-w-xl text-center">
             Everything that the marvel api offers, feel free to explore the
             pages.
           </p>
           <Container>
-            <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-4 gap-4 mt-8">
-              <HomeGridCard cols="1" grid={gridLinks[0]} />
-              <HomeGridCard cols="1" grid={gridLinks[1]} />
-              <HomeGridCard cols="1" grid={gridLinks[2]} />
-              <HomeGridCard cols="1" grid={gridLinks[3]} />
-              <HomeGridCard cols="1" grid={gridLinks[4]} />
-              <HomeGridCard cols="2" grid={gridLinks[5]} />
-              <HomeGridCard cols="1" grid={gridLinks[6]} />
-            </div>
+            {isBigScreen ? (
+              <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-4 gap-4 mt-8">
+                <HomeGridCard cols="1" grid={gridLinks[0]} />
+                <HomeGridCard cols="1" grid={gridLinks[1]} />
+                <HomeGridCard cols="1" grid={gridLinks[2]} />
+                <HomeGridCard cols="1" grid={gridLinks[3]} />
+                <HomeGridCard cols="1" grid={gridLinks[4]} />
+                <HomeGridCard cols="2" grid={gridLinks[5]} />
+                <HomeGridCard cols="1" grid={gridLinks[6]} />
+              </div>
+            ) : (
+              <Carousel
+                className="my-8"
+                plugins={[plugin.current]}
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}>
+                <CarouselContent>
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <CarouselItem key={index} className="px-8">
+                      <HomeGridCard cols="1" grid={gridLinks[index]} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            )}
           </Container>
         </Vortex>
-      </div>
-
-      <div className="h-96 w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-        <h1 className="md:text-3xl text-xl lg:text-5xl font-bold text-center text-white relative z-20 w-full">
-          that was a bit of marvel history
-        </h1>
-        <div className="w-full h-40 relative">
-          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-destructive to-transparent h-[2px] w-3/4 blur-sm" />
-          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-destructive to-transparent h-px w-3/4" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-destructive to-transparent h-[5px] w-1/4 blur-sm" />
-          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-destructive to-transparent h-px w-1/4" />
-
-          <SparklesCore
-            background="transparent"
-            minSize={0.4}
-            maxSize={1.6}
-            particleDensity={3000}
-            className="w-full h-full"
-            particleColor="#f01414e6"
-          />
-
-          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(650px_200px_at_top,transparent_20%,white)]"></div>
-        </div>
       </div>
     </Layout>
   );
@@ -157,9 +177,14 @@ const HomeGridCard = ({ grid, cols }: HomeGridCardProps) => {
           objectFit="cover"
           className=" hover:brightness-125 transition-all hover:scale-110"
         />
+        <Badge
+          className="absolute top-3 right-3 text-sm"
+          variant={"destructive"}>
+          {grid.category}
+        </Badge>
       </div>
       <div className="mt-4">
-        <p className="font-bold">{grid.name}</p>
+        <p className="font-bold text-center lg:text-left">{grid.name}</p>
       </div>
     </Link>
   );

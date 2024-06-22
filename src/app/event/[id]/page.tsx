@@ -4,17 +4,7 @@ import Layout from "@/_layouts";
 import Container from "@/components/container";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { DollarSign, Info, X } from "lucide-react";
 import NotFound from "@/components/not-found";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getEventById } from "@/app/api/marvel/event/get-event-by-id";
 import { IEventRoot } from "@/interfaces/marvel/event";
@@ -25,25 +15,11 @@ import CharacterCard from "@/components/marvel/characters/character-card";
 import CharacterCardNotFound from "@/components/marvel/characters/character-card-not-found";
 import { getEventComicsById } from "@/app/api/marvel/event/comics/get-event-comics-by-id";
 import { IComicsRoot } from "@/interfaces/marvel/comics";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useRef } from "react";
-import Autoplay from "embla-carousel-autoplay";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ComicsCarousel from "@/components/marvel/comics/carousel";
-import { AUTOPLAY_DELAY } from "@/lib/constants";
 import ComicsCarouselSkeleton from "@/components/marvel/comics/carousel-skeleton";
 
 export default function EventPage({ params }: { params: { id: string } }) {
-  const plugin = useRef(
-    Autoplay({ delay: AUTOPLAY_DELAY, stopOnInteraction: true })
-  );
-
   const {
     data: event,
     isLoading: isLoadingEvent,
@@ -68,11 +44,6 @@ export default function EventPage({ params }: { params: { id: string } }) {
   if (isErrorEvent) {
     return <NotFound title="event" />;
   }
-
-  if (event)
-    console.log(
-      `${event.data.results[0].thumbnail.path}.${event.data.results[0].thumbnail.extension}`
-    );
 
   return (
     <Layout>

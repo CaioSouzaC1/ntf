@@ -10,7 +10,7 @@ import {
 import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 
-const useIsBigScreen = () => {
+export const useIsBigScreen = () => {
   const [isBigScreen, setIsBigScreen] = useState(false);
 
   useEffect(() => {

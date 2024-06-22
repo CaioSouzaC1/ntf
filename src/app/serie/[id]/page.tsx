@@ -41,6 +41,11 @@ export default function SeriePage({ params }: { params: { id: string } }) {
     return <NotFound title="serie" />;
   }
 
+  if (serie)
+    console.log(
+      `${serie.data.results[0].thumbnail.path}.${serie.data.results[0].thumbnail.extension}`
+    );
+
   return (
     <Layout>
       <Container>
