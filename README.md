@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Marvel App
 
-## Getting Started
+![Home](public/home.png)
 
-First, run the development server:
+### Visível em: https://marvel.caiosouza.dev
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este projeto é um aplicativo desenvolvido com Next.js 14, React Query, Tailwind CSS, TypeScript e Shadcn UI.
+Ele utiliza a API da Marvel para exibir informações sobre personagens, quadrinhos e outros dados relacionados ao universo Marvel.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ As rotas dinâmicas são utilizadas para acessar detalhes específicos através de IDs.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tecnologias Utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Next.js 14**: Framework React para desenvolvimento de aplicações web.
+- **React Query**: Biblioteca para gerenciamento de estado assíncrono.
+- **Tailwind CSS**: Framework CSS utilitário para estilização.
+- **TypeScript**: Superset de JavaScript que adiciona tipagem estática.
+- **Shadcn UI**: Biblioteca de componentes UI.
+- **API da Marvel**: Fonte de dados para informações sobre o universo Marvel.
 
-## Learn More
+## Funcionalidades
 
-To learn more about Next.js, take a look at the following resources:
+- Listagem de personagens, quadrinhos, séries, etc.
+- Detalhes de personagens com rotas dinâmicas.
+- Pesquisa por personagens e quadrinhos.
+- Navegação intuitiva e interface responsiva.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Rotas do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Route (app)                              
+┌ ○ /                                    
+├ ○ /_not-found                                
+├ ƒ /character/**[id]**                      
+├ ○ /characters                          
+├ ƒ /comic/**[id]**                          
+├ ○ /comics                              
+├ ○ /creators                            
+├ ƒ /event/**[id]**                          
+├ ○ /events                              
+├ ƒ /serie/**[id]**                          
+└ ○ /series 

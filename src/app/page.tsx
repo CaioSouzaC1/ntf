@@ -108,7 +108,7 @@ export default function HomePage() {
     {
       link: "/serie/16450",
       name: "A+X (2012 - 2014)",
-      url: "page.tsx:45 http://i.annihil.us/u/prod/marvel/i/mg/5/d0/511e88a20ae34.jpg",
+      url: "http://i.annihil.us/u/prod/marvel/i/mg/5/d0/511e88a20ae34.jpg",
       category: "Serie",
     },
   ];
